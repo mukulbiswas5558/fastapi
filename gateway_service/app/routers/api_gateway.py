@@ -1,7 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from ..services.user_client import get_user_data
-from ..services.post_client import get_post_data
-from ..services.item_client import get_item_data
+from ..services.product_client import get_product_data
 
 router = APIRouter()
 
@@ -12,16 +11,11 @@ async def get_user(user_id: int):
         raise HTTPException(status_code=404, detail="User not found")
     return user
 
-@router.get("/posts/{post_id}")
-async def get_post(post_id: int):
-    post = await get_post_data(post_id)
+@router.get("/products/{product_id}")
+async def get_post(product_id: int):
+    post = await get_product_data(product_id)
     if not post:
-        raise HTTPException(status_code=404, detail="Post not found")
+        raise HTTPException(status_code=404, detail="Product not found")
     return post
 
-@router.get("/items/{item_id}")
-async def get_item(item_id: int):
-    item = await get_item_data(item_id)
-    if not item:
-        raise HTTPException(status_code=404, detail="Item not found")
-    return item
+
